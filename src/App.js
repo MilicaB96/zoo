@@ -22,12 +22,11 @@ function App() {
     {
       species: "cat",
       name: "Suki",
-      birthday: new Date(2015, 2, 10).toLocaleDateString(),
+      birthday: "",
     },
     {
       species: "parrot",
       name: "Polly",
-      birthday: new Date(2010, 1, 2).toLocaleDateString(),
     },
   ]);
   return (
@@ -45,7 +44,7 @@ function App() {
             <tr key={index}>
               <td>{item.species}</td>
               <td>{item.name}</td>
-              <td>{item.birthday}</td>
+              <td>{item.birthday ? item.birthday : "Nepoznato"}</td>
             </tr>
           ))}
         </tbody>
