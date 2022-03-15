@@ -28,8 +28,67 @@ function App() {
       name: "Polly",
     },
   ]);
+  // species,name,date
+  const [species, setSpecies] = useState("");
+  const [name, setName] = useState("");
+  const [date, setDate] = useState(new Date());
+  // add animal function
+  const addAnimal = (species, name, date) => {
+    date = date.split("-");
+    const [year, month, day] = date;
+    date = new Date(year, month, day).toLocaleDateString();
+    console.log(date);
+    setAnimals([...animals, { species, name, birthday: date }]);
+  };
+  // handleSubmit
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    addAnimal(species, name, date);
+  };
   return (
     <div className='App'>
+      <form style={{ padding: "1.5em" }} onSubmit={handleSubmit}>
+        <label>
+          Species:
+          <input
+            type='text'
+            name='species'
+            placeholder='Species'
+            value={species}
+            onChange={(e) => {
+              setSpecies(e.target.value);
+            }}
+          />
+        </label>
+        <br />
+        <label>
+          Name:
+          <input
+            type='text'
+            name='name'
+            placeholder='Name'
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
+          />
+        </label>
+        <br />
+        <label>
+          Birthday:
+          <input
+            type='date'
+            name='date'
+            placeholder='date'
+            value={date}
+            onChange={(e) => {
+              setDate(e.target.value);
+            }}
+          />
+        </label>
+        <br />
+        <button type='submit'>Add animal</button>
+      </form>
       <table>
         <thead>
           <tr>
