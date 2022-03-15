@@ -2,7 +2,7 @@ import "./App.css";
 import { useState } from "react";
 
 function App() {
-  const [zivotinje, setZivotinje] = useState([
+  const [animals, setAnimals] = useState([
     {
       species: "cat",
       name: "Miki",
@@ -39,23 +39,41 @@ function App() {
           </tr>
         </thead>
         <tbody>
-          {zivotinje.map((item, index) => (
+          {animals.map((animal, index) => (
             <tr key={index}>
-              <td>{item.species}</td>
-              <td>{item.name}</td>
-              <td>{item.birthday ? item.birthday : "Nepoznato"}</td>
+              <td>{animal.species}</td>
+              <td>{animal.name}</td>
+              <td>{animal.birthday ? animal.birthday : "Nepoznato"}</td>
               <td>
                 <button
                   type='button'
                   onClick={() => {
-                    setZivotinje(
-                      zivotinje.filter(
-                        (removedItem) => removedItem.name !== item.name
+                    setAnimals(
+                      animals.filter(
+                        (removedAnimal) => removedAnimal.name !== animal.name
                       )
                     );
                   }}
                 >
                   Remove
+                </button>
+              </td>
+              <td>
+                <button
+                  type='button'
+                  onClick={() => {
+                    setAnimals(
+                      animals.reduce((prev, curr) => {
+                        {
+                          return animal.name === curr.name
+                            ? [curr, ...prev]
+                            : [...prev, curr];
+                        }
+                      }, [])
+                    );
+                  }}
+                >
+                  Move to top
                 </button>
               </td>
             </tr>
