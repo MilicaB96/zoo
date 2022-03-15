@@ -4,46 +4,56 @@ import { useState } from "react";
 function App() {
   const [animals, setAnimals] = useState([
     {
-      species: "cat",
+      species: "Norweigan shorthair",
       name: "Miki",
       birthday: new Date(2021, 2, 3).toLocaleDateString(),
+      sector: "cat",
     },
     {
       species: "parrot",
       name: "Pero",
       birthday: new Date(2015, 5, 7).toLocaleDateString(),
+      sector: "bird",
     },
     {
-      species: "dog",
+      species: "War Hound",
       name: "Rex",
       birthday: new Date(2013, 5, 1).toLocaleDateString(),
+      sector: "dog",
     },
     {
-      species: "cat",
+      species: "Kaliko",
       name: "Suki",
       birthday: "",
+      sector: "cat",
     },
     {
       species: "parrot",
       name: "Polly",
+      birthday: "",
+      sector: "bird",
     },
   ]);
+  // sectors
+  const animalSector = ["cat", "dog", "bird", "snake", "rabbit"];
   // species,name,date
   const [species, setSpecies] = useState("");
   const [name, setName] = useState("");
   const [date, setDate] = useState(new Date());
+  const [sector, setSector] = useState("cat");
   // add animal function
-  const addAnimal = (species, name, date) => {
+  const addAnimal = (species, name, date, sector) => {
+    console.log("sector", sector);
+
     date = date.split("-");
     const [year, month, day] = date;
     date = new Date(year, month, day).toLocaleDateString();
-    console.log(date);
-    setAnimals([...animals, { species, name, birthday: date }]);
+    setAnimals([...animals, { species, name, birthday: date, sector }]);
   };
   // handleSubmit
   const handleSubmit = (e) => {
     e.preventDefault();
-    addAnimal(species, name, date);
+    addAnimal(species, name, date, sector);
   };
   return (
     <div className='App'>
@@ -79,6 +89,7 @@ function App() {
           <input
             type='date'
             name='date'
+            required
             placeholder='date'
             value={date}
             onChange={(e) => {
@@ -86,6 +97,18 @@ function App() {
             }}
           />
         </label>
+        <br />
+        <select
+          onChange={(e) => {
+            {
+              setSector(e.target.value);
+            }
+          }}
+        >
+          {animalSector.map((sector) => {
+            return <option value={sector}>{sector}</option>;
+          })}
+        </select>
         <br />
         <button type='submit'>Add animal</button>
       </form>
@@ -95,6 +118,7 @@ function App() {
             <th>species</th>
             <th>name</th>
             <th>birthday</th>
+            <th>sector</th>
           </tr>
         </thead>
         <tbody>
@@ -103,6 +127,7 @@ function App() {
               <td>{animal.species}</td>
               <td>{animal.name}</td>
               <td>{animal.birthday ? animal.birthday : "Nepoznato"}</td>
+              <td>{animal.sector}</td>
               <td>
                 <button
                   type='button'
@@ -123,11 +148,9 @@ function App() {
                   onClick={() => {
                     setAnimals(
                       animals.reduce((prev, curr) => {
-                        {
-                          return animal.name === curr.name
-                            ? [curr, ...prev]
-                            : [...prev, curr];
-                        }
+                        return animal.name === curr.name
+                          ? [curr, ...prev]
+                          : [...prev, curr];
                       }, [])
                     );
                   }}
