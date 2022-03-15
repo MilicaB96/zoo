@@ -43,8 +43,6 @@ function App() {
   const [sector, setSector] = useState("cat");
   // add animal function
   const addAnimal = (species, name, date, sector) => {
-    console.log("sector", sector);
-
     date = date.split("-");
     const [year, month, day] = date;
     date = new Date(year, month, day).toLocaleDateString();
@@ -156,6 +154,34 @@ function App() {
                   }}
                 >
                   Move to top
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Sectors:</th>
+          </tr>
+        </thead>
+        <tbody>
+          {animalSector.map((sector, index) => (
+            <tr key={index}>
+              <td>{sector}</td>
+              <td>
+                <button
+                  type='button'
+                  onClick={() => {
+                    alert(
+                      animals
+                        .filter((animal) => animal.sector === sector)
+                        .map((obj) => `${obj.name} (${obj.species})`)
+                    );
+                  }}
+                >
+                  Check Animals
                 </button>
               </td>
             </tr>
