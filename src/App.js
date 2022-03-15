@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
 
@@ -45,6 +44,20 @@ function App() {
               <td>{item.species}</td>
               <td>{item.name}</td>
               <td>{item.birthday ? item.birthday : "Nepoznato"}</td>
+              <td>
+                <button
+                  type='button'
+                  onClick={() => {
+                    setZivotinje(
+                      zivotinje.filter(
+                        (removedItem) => removedItem.name !== item.name
+                      )
+                    );
+                  }}
+                >
+                  Remove
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
